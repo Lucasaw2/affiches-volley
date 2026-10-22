@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050b1f">
+  <title>Affiches Volley</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a3fa8'/%3E%3Ctext x='32' y='44' font-family='Arial' font-weight='700' font-size='30' text-anchor='middle' fill='white'%3EFIN%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <button class="brand" type="button" data-go="home" aria-label="Accueil">
+      <span class="brand-mark">FIN</span>
+      <span class="brand-text">Affiches Volley</span>
+    </button>
+  </header>
+
+  <main>
+    <!-- 1. Choix du type -->
+    <section id="step-home" class="step">
+      <h1>Quelle affiche veux-tu créer&nbsp;?</h1>
+      <div class="type-grid">
+        <button class="type-card" type="button" data-type="set">
+          <span class="type-kicker">FIN</span>
+          <span class="type-name">Fin de set</span>
+          <span class="type-desc">Score du set + numéro du set</span>
+        </button>
+        <button class="type-card" type="button" data-type="match">
+          <span class="type-kicker">FIN</span>
+          <span class="type-name">Fin de match</span>
+          <span class="type-desc">Nombre de sets gagnés</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 2. Formulaire + aperçu -->
+    <section id="step-form" class="step" hidden>
+      <div class="form-head">
+        <button class="link-btn" type="button" data-go="home">← Changer de type</button>
+        <h1 id="form-title">Fin de set</h1>
+      </div>
+
+      <div class="form-layout">
+        <form id="poster-form" class="form-col" novalidate autocomplete="off">
+          <fieldset class="card">
+            <legend>Format</legend>
+            <div class="format-grid">
+              <label class="format-tile">
+                <input type="checkbox" name="format" value="post">
+                <span class="format-shape post" aria-hidden="true"></span>
+                <span><strong>Post</strong><small>4:5 · 1080×1350</small></span>
+              </label>
+              <label class="format-tile">
+                <input type="checkbox" name="format" value="story">
+                <span class="format-shape story" aria-hidden="true"></span>
+                <span><strong>Story</strong><small>9:16 · 1080×1920</small></span>
+              </label>
+            </div>
+            <p class="field-error" id="format-error" hidden>Choisis au moins un format.</p>
+          </fieldset>
+
+          <fieldset class="card" id="set-card">
+            <legend>Numéro du set</legend>
+            <div class="chips" id="set-chips" role="radiogroup" aria-label="Numéro du set">
+              <button type="button" class="chip" data-set="1">1</button>
+              <button type="button" class="chip" data-set="2">2</button>
+              <button type="button" class="chip" data-set="3">3</button>
+              <button type="button" class="chip" data-set="4">4</button>
+              <button type="button" class="chip" data-set="5">5</button>
+            </div>
+          </fieldset>
+
+          <fieldset class="card">
+            <legend>Équipes et score</legend>
+            <div class="teams">
+              <div class="team">
+                <label class="field-label" for="team1">Équipe de gauche</label>
+                <input id="team1" name="team1" class="text-input" list="team-list" maxlength="40" placeholder="Nom de l'équipe">
+                <div class="stepper">
+                  <button type="button" class="step-btn" data-step="score1" data-delta="-1" aria-label="Retirer un point">−</button>
+                  <input id="score1" name="score1" class="score-input" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="0" aria-label="Score équipe de gauche">
+                  <button type="button" class="step-btn" data-step="score1" data-delta="1" aria-label="Ajouter un point">+</button>
+                </div>
+              </div>
+              <button type="button" class="swap-btn" id="swap" title="Inverser les équipes" aria-label="Inverser les équipes">⇄</button>
+              <div class="team">
+                <label class="field-label" for="team2">Équipe de droite</label>
+                <input id="team2" name="team2" class="text-input" list="team-list" maxlength="40" placeholder="Nom de l'équipe">
+                <div class="stepper">
+                  <button type="button" class="step-btn" data-step="score2" data-delta="-1" aria-label="Retirer un point">−</button>
+                  <input id="score2" name="score2" class="score-input" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="0" aria-label="Score équipe de droite">
+                  <button type="button" class="step-btn" data-step="score2" data-delta="1" aria-label="Ajouter un point">+</button>
+                </div>
+              </div>
+            </div>
+            <datalist id="team-list"></datalist>
+            <p class="field-error" id="score-error" hidden>Entre les deux scores.</p>
+          </fieldset>
+
+          <fieldset class="card">
+            <legend>Texte du haut</legend>
+            <input id="label" name="label" class="text-input" maxlength="30" placeholder="ex. OPEN 4">
+            <p class="hint">Petit texte au-dessus de « FIN ». Laisse vide pour ne rien afficher.</p>
+          </fieldset>
+
+          <button type="submit" class="primary-btn big">Créer les affiches →</button>
+        </form>
+
+        <aside class="preview-col" aria-label="Aperçu">
+          <div class="preview-sticky">
+            <p class="preview-title">Aperçu</p>
+            <div class="preview-grid" id="preview-grid">
+              <figure class="preview-item" data-format="post">
+                <canvas class="poster-canvas"></canvas>
+                <figcaption>Post 4:5</figcaption>
+              </figure>
+              <figure class="preview-item" data-format="story">
+                <canvas class="poster-canvas"></canvas>
+                <figcaption>Story 9:16</figcaption>
+              </figure>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 3. Résultat -->
+    <section id="step-result" class="step" hidden>
+      <div class="result-head">
+        <h1>Tes affiches sont prêtes</h1>
+        <p class="muted" id="result-sub"></p>
+      </div>
+
+      <div class="result-layout">
+        <div class="result-images" id="result-images"></div>
+
+        <div class="result-side">
+          <div class="card actions-card">
+            <button type="button" class="primary-btn big" id="share-btn" hidden>Enregistrer / Partager</button>
+            <button type="button" class="primary-btn big" id="download-all">Télécharger</button>
+            <p class="hint" id="save-hint" hidden>Astuce iPhone : « Enregistrer / Partager » puis « Enregistrer l'image » pour les mettre dans Photos.</p>
+          </div>
+
+          <div class="card qr-card" id="qr-card">
+            <p class="qr-title">Récupérer sur ton téléphone</p>
+            <div class="qr-box"><canvas id="qr-canvas" width="296" height="296"></canvas></div>
+            <p class="hint">Scanne ce QR code avec l'appareil photo du téléphone : les images s'ouvrent directement, prêtes à être enregistrées.</p>
+            <p class="warn" id="qr-local-warn" hidden>Tu es sur une version locale : le QR code fonctionnera une fois le site en ligne (GitHub Pages).</p>
+            <div class="link-row">
+              <input class="text-input small" id="share-link" readonly aria-label="Lien direct">
+              <button type="button" class="ghost-btn" id="copy-link">Copier</button>
+            </div>
+          </div>
+          <button type="button" class="ghost-btn wide" id="qr-toggle" hidden>Afficher le QR code</button>
+
+          <div class="result-nav">
+            <button type="button" class="ghost-btn" id="edit-btn">← Modifier</button>
+            <button type="button" class="ghost-btn" data-go="home">Nouvelle affiche</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="vendor/qrcode.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/background.js"></script>
+  <script src="js/poster.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
